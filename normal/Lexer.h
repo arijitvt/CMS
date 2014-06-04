@@ -21,12 +21,6 @@ typedef enum {
 
 }Tokens;
 
-
-//static string DEALER_ID_TOKENS[] 	= {"DB","JPM","UBS","RBC","BARX","MS","CITI","BOFA","RBS","HSBC"};
-//static string COMMODITY_TOKENS[] 	= {"GOLD","SILV","PORK","OIL","RICE"};
-//static string COMMAND_TOKENS[] 		= {"POST","REVOKE","LIST","AGGRESS"};
-//static string SIDE_TOKENS[] 		= {"BUY","SELL"};
-
 static array<string,10> DEALER_ID_TOKENS 	= {"DB","JPM","UBS","RBC","BARX","MS","CITI","BOFA","RBS","HSBC"};
 static array<string,5>  COMMODITY_TOKENS 	= {"GOLD","SILV","PORK","OIL","RICE"};
 static array<string,4>  COMMAND_TOKENS 		= {"POST","REVOKE","LIST","AGGRESS"};

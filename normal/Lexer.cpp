@@ -1,16 +1,19 @@
 #include <Lexer.h>
+#include <boost/lexical_cast.hpp>
 
 int GetToken() {
+
 	int lastChar = ' ' ;
-	while(isspace(lastChar)) {
+	do {
 		lastChar = getchar();
-	}
+	}while(isspace(lastChar)) ;
 
 	if(isalpha(lastChar)) {
-		string identifierString;
-		ss<<(char)lastChar;
-		ss>>identifierString;
+		string identifierString = boost::lexical_cast<string>((char)lastChar);
+#ifdef DEBUG
 		cout<<"Identifier String is : "<<identifierString<<endl;
+
+#endif
 		while(isalnum(lastChar=getchar())) {
 			identifierString+=lastChar;
 		}
@@ -44,7 +47,9 @@ int GetToken() {
 			numString+=lastChar;
 			lastChar=getchar();
 		}while(isdigit(lastChar) || lastChar == '.');
+#ifdef DEBUG
 		cout<<"Number String " <<numString<<endl;
+#endif
 	}
 	return 0;
 }
