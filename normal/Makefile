@@ -1,9 +1,9 @@
 target=cms
 
 cc=g++
-cflags= -c -I.  -I$(boost_lib)
+cflags= -std=c++0x -c -g -I.  -I$(boost_lib)  -DDEBUG
 lflags=
-objs= Parser.o main.o
+objs= Lexer.o Parser.o main.o
 
 rm=rm -rf
 

@@ -1,7 +1,10 @@
-#include <Parser.h>
+#include <Lexer.h>
 
 
 int main() {
-	cout<<"Arijit "<<endl;
+	while(1) {
+		cout<<">";
+		GetToken();
+	}
 	return 0;
 }
