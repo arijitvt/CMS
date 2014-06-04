@@ -1,7 +1,7 @@
 target=cms
 
 cc=g++
-cflags= -I. -c
+cflags= -c -I.  -I$(boost_lib)
 lflags=
 objs= Parser.o main.o
 
