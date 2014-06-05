@@ -22,9 +22,10 @@ OprNodeType* opr(OperationType opType, int nops,...);
 
 %token <ival> 	TOK_INTEGER  
 %token <dval> 	TOK_DOUBLE
-%token <string> TOK_DELEAR_ID 
+%token <string> TOK_DEALER_ID 
 %token <string> TOK_COMMODITY
-%token TOK_POST TOK_REVOKE TOK_CHECK TOK_LIST 
+%token TOK_POST TOK_REVOKE TOK_CHECK TOK_LIST TOK_AGGRESS
+%token TOK_LEFT_SQ_BRACE TOK_RIGHT_SQ_BRACE
 %token <ival> 	TOK_BUY
 
 %type <nodeTy> INPUT_MESSAGE 
@@ -32,24 +33,33 @@ OprNodeType* opr(OperationType opType, int nops,...);
 %type <nodeTy> POST_COMMAND 
 %type <nodeTy> REVOKE_COMMAND 
 %type <nodeTy> CHECK_COMMAND 
+%type <nodeTy> LIST_COMMAND 
 %type <nodeTy> ORDER_ID 
 %type <opType> SIDE COMMODITY AMOUNT PRICE
-%type <string> DELEAR_ID
+%type <opType> DEALER_ID
 %%
 
 QRY : /* */
     | QRY INPUT_MESSAGE {
-    	printf("This is the input Message \n");
+    	#ifdef DEBUG
+   	printf("This is the input Message \n");
+	#endif
     }
 ;
 
-INPUT_MESSAGE: DELEAR_ID COMMAND  {
+INPUT_MESSAGE: DEALER_ID COMMAND  {
 	       ex($1,$2);
 	     }
 ;	     
 
-DELEAR_ID: TOK_DELEAR_ID {
-		$$ = $1;
+DEALER_ID: TOK_DEALER_ID {
+	    	#ifdef DEBUG
+	        	printf("The dealer id \n");
+		#endif
+		Operator *node = (Operator*)malloc(sizeof(Operator));
+		node->type = 2;
+		node->i=$1;
+		$$ = node;
 	 }
 ;
 
@@ -57,38 +67,67 @@ COMMAND: POST_COMMAND {
        		$$ = $1;
        } 
        | REVOKE_COMMAND {
-       		printf("Coming to the revoke command\n");
         	$$ = $1;
 	}
        | CHECK_COMMAND {
+       		$$ = $1;
+       }
+       | LIST_COMMAND {
        		$$ = $1;
        }
 ;
 
 POST_COMMAND: TOK_POST SIDE COMMODITY AMOUNT PRICE
 	    {
+	    	#ifdef DEBUG
 			printf("This is the message \n");	    	
+		#endif
 	    	        $$ = opr(POST,4,$2,$3,$4,$5);
 	    }
 ;
 
 REVOKE_COMMAND:TOK_REVOKE ORDER_ID
 	      {
+	    	#ifdef DEBUG
 		      	printf ("Invoking revoke command\n");
+		#endif
 		        $$ = opr(REVOKE,1,$2);
 	      }
 ;
 
 CHECK_COMMAND:TOK_CHECK ORDER_ID 
 	     {
-	     	printf("Invoking check command \n");
+	    	#ifdef DEBUG
+	     		printf("Invoking check command \n");
+		#endif
 		$$ = opr(CHECK,1,$2);
 	     }
 ;
 
+LIST_COMMAND: TOK_LIST 
+	    {
+	    	printf("Smallest list command\n");
+		$$ = opr(LIST,0);
+	    }
+	    | TOK_LIST COMMODITY 
+	    {
+	    	printf("Medium list command\n");
+		$$ = opr(LIST,1,$2);
+	    }
+	    | TOK_LIST COMMODITY DEALER_ID 
+	    {
+	    	printf("Largest list command\n");
+		$$ = opr(LIST,1,$2);
+	    }
+;
+
+
+
 SIDE: TOK_BUY 
     {
-    	printf("Token buy or sell %d\n",$1);
+	#ifdef DEBUG
+    		printf("Token buy or sell %d\n",$1);
+	#endif
 	Operator *node = (Operator*)malloc(sizeof(Operator));
 	node->type = 0;
 	node->i=$1;
@@ -98,7 +137,9 @@ SIDE: TOK_BUY
 
 COMMODITY : TOK_COMMODITY
 	{
-        	printf("The token commodity \n");
+	    	#ifdef DEBUG
+	        	printf("The token commodity \n");
+		#endif
 		Operator *node = (Operator*)malloc(sizeof(Operator));
 		node->type = 2;
 		node->i=$1;
@@ -109,7 +150,9 @@ COMMODITY : TOK_COMMODITY
 
 AMOUNT: TOK_INTEGER
 	{
-        	printf("The  Amount \n");
+	    	#ifdef DEBUG
+        		printf("The  Amount \n");
+		#endif
 		Operator *node = (Operator*)malloc(sizeof(Operator));
 		node->type = 0;
 		node->i=$1;
@@ -119,7 +162,9 @@ AMOUNT: TOK_INTEGER
 
 PRICE: TOK_DOUBLE
 	{
-        	printf("The  Price \n");
+	    	#ifdef DEBUG
+        		printf("The  Price \n");
+       		#endif
 		Operator *node = (Operator*)malloc(sizeof(Operator));
 		node->type = 1;
 		node->i=$1;
@@ -129,7 +174,9 @@ PRICE: TOK_DOUBLE
 
 ORDER_ID:TOK_INTEGER
 	{
-        	printf("The  Order Id \n");
+	    	#ifdef DEBUG
+        		printf("The  Order Id \n");
+		#endif
 		Operator *node = (Operator*)malloc(sizeof(Operator));
 		node->type = 0;
 		node->i=$1;
@@ -141,13 +188,16 @@ ORDER_ID:TOK_INTEGER
 
 OprNodeType *opr(OperationType opType, int nops,...) 
 {
+	printf("Calling function %s\n",__func__);
 	va_list  ap;
 	OprNodeType *node;
 	node = (OprNodeType*) malloc(sizeof(OprNodeType));
 	if(node == NULL) {
 		yyerror("Out of memory \n");
 	}	
-	printf("Operation type is  %d\n", opType);
+	#ifdef DEBUG
+		printf("Operation type is  %d\n", opType);
+	#endif
 	node->opType = opType;
 	node->nops = nops;
 	va_start(ap,nops);
@@ -158,7 +208,9 @@ OprNodeType *opr(OperationType opType, int nops,...)
 		node->ops[i]=op;
 	}
 	va_end(ap);
-	printf("Sending node %d\n",node);
+	#ifdef DEBUG
+		printf("Sending node %d\n",node);
+	#endif
 	return  node;
 }
 

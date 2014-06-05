@@ -19,7 +19,7 @@ typedef enum {
 	REVOKE,
 	CHECK,
 	LIST,
-	AGRESS                                        	
+	AGGRESS                                        	
 } OperationType;
 
 extern int sym[26];
@@ -40,6 +40,6 @@ typedef struct {
 }OprNodeType;
 
 OprNodeType* opr(OperationType opType, int nops,...);
-int ex(char *dealer_id,OprNodeType *);
+int ex(OprNodeType* ,OprNodeType* );
 
 #endif

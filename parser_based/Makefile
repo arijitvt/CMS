@@ -1,5 +1,5 @@
 cc=gcc
-target=output
+target=cms
 
 
 cflags= -c -g
@@ -18,7 +18,7 @@ lex.o:lex.c
 	$(cc) $(cflags) -o lex.o lex.c
 
 parser.o:parser.c
-	$(cc) $(cflags) -o parser.o parser.c
+	$(cc) $(cflags) -o parser.o --debug parser.c
 
 parser.c:parser.y
 	yacc  -d parser.y -o parser.c

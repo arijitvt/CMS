@@ -4,8 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int ex(char *dealer_id, OprNodeType *node) {
-	printf("Coming to the execution function %d\n",node);
+int ex(OprNodeType *dealer_id, OprNodeType *node) {
 	switch(node->opType) {
 		case  POST:
 			printf("This is the post operation \n");
@@ -17,6 +16,14 @@ int ex(char *dealer_id, OprNodeType *node) {
 
 		case CHECK:
 			printf("This is the check operation \n");
+			break;
+
+		case LIST:
+			printf("This is the list operation \n");
+			break;
+                                          
+		case AGGRESS:
+			printf("This is aggress operation\n");
 			break;
 
 		default:
