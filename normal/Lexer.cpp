@@ -26,16 +26,20 @@ int GetToken() {
 #ifdef DEBUG
 			cout<<"Commodity Token "<<identifierString<<endl;
 #endif
+			currentToken = identifierString;
 			return TOK_COMMODITY;
 		}else if (isCommandToken(identifierString)) {
 #ifdef DEBUG
       		cout<<"Command Token " << identifierString<<endl;
 #endif
+
+			currentToken = identifierString;
 			return TOK_COMMAND;
 		}else if(isSideToken(identifierString)) {
 #ifdef DEBUG
 			cout<<"Side Token " <<identifierString<<endl;
 #endif
+			currentToken = identifierString;
 			return TOK_SIDE;
 		}
 
@@ -47,9 +51,16 @@ int GetToken() {
 			numString+=lastChar;
 			lastChar=getchar();
 		}while(isdigit(lastChar) || lastChar == '.');
-#ifdef DEBUG
-		cout<<"Number String " <<numString<<endl;
-#endif
+		size_t found = numString.find(".");
+		if(found != string::npos) {
+			cout<<"Double string "<<numString<<endl;
+			currentToken = numString;
+		 	return TOK_DOUBLE;
+		}else {
+			cout<<"Int string "<<numString<<endl;
+			currentToken = numString;
+			return TOK_INTEGER;
+		}
 	}
 	return 0;
 }

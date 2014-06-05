@@ -5,6 +5,8 @@
 #include <string>
 using namespace std;
 
+#include <Lexer.h>
+
 
 class Parser {
 	public:
@@ -24,6 +26,11 @@ class ExpAST {
 class PostAST:public ExpAST {
 	public:
 		PostAST();
+	private:
+		bool side;
+		string commodityName;
+		int amount;
+		double price;		
 
 };
 
@@ -32,8 +39,16 @@ class RevokeAST:public ExpAST {
 		RevokeAST();
 
 	private:
-		bool buyOrSell;
+		bool side;
+		int orderId;
+};
 
+class IntegerAST:public ExpAST {
+	public:
+		IntegerAST(int val);
+
+	private:
+		int value;
 };
 
 

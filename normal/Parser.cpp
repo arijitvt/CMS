@@ -15,3 +15,13 @@ PostAST::PostAST() {
 RevokeAST::RevokeAST() {
 	cout<<"This is the Revoke command AST builder "<<endl;
 }
+
+IntegerAST::IntegerAST(int val) {
+	value = val;
+}
+
+
+
+static ParseNumberExpression() {
+	
+}
