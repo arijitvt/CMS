@@ -36,12 +36,11 @@ bool isDealerIDToken(string token) ;
 bool isCommodityToken(string token) ;
 bool isCommandToken(string token);
 bool isSideToken(string token);
-
+  
 
 /**
  * Api
  */
-int GetToken();
 int GetToken(string token);
 string GetCurrentToken();
 

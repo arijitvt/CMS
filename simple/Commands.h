@@ -3,6 +3,9 @@
 
 
 #include <iostream>
+#include <string>
+#include <vector>
+#include <cstdarg>
 using namespace std;
 
 
@@ -26,9 +29,45 @@ class PostCommand:public Command {
 
 class RevokeCommand:public Command {
   	public:
-		RevokeCommand();
+		explicit RevokeCommand(int id);
 		int execute();
+
+	private:
+		int orderId;
 };
 
+
+class ListCommand:public Command {
+	public:
+		ListCommand();
+		ListCommand(string);
+		ListCommand(string,string);
+		int execute();
+
+	private:
+		string commodityName;
+		string dealerId;
+
+};
+
+class AggressCommand:public Command {
+	public:
+		struct APair{
+			int orderId;
+			int amount;
+		} ;
+		typedef struct APair APair;
+
+	public:
+		AggressCommand(int numOfArgs,...);
+		AggressCommand(vector<APair> apArg);
+		int execute();
+
+
+	private:
+
+		vector<APair> apairList;
+
+};
 
 #endif

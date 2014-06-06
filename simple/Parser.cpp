@@ -47,13 +47,65 @@ void Parser::doParse() {
 				command = new PostCommand(buyOrSell,commodityName,amount,price);
 			
 			}else if(token == "REVOKE") {
-			
+				assert(tokenStore.size() == 3);
+				//Get the order id
+				tokenType = GetToken(tokenStore[2]);
+				assert(tokenType == Tokens::TOK_INTEGER);
+				int id = boost::lexical_cast<int>(GetCurrentToken());
+				
+				command = new RevokeCommand(id);
+
+
 			}else if(token == "LIST") {
+				assert(tokenStore.size() >= 2 && tokenStore.size() <= 4 && "Illegal tokens are supplied to the list command") ;
+				switch(tokenStore.size()) {
+					case 2 :
+						command = new ListCommand;
+						break;
+
+					case 3:  
+						tokenType = GetToken(tokenStore[2]) ;
+						assert(tokenType == Tokens::TOK_COMMODITY && "Token is not commodity for the list command");
+						command = new ListCommand(GetCurrentToken());
+						break;
+
+					case 4: {
+						tokenType = GetToken(tokenStore[2]) ;
+						assert(tokenType == Tokens::TOK_COMMODITY && "Token is not commodity for the list command");
+						string commodityName = GetCurrentToken();
+						
+						tokenType = GetToken(tokenStore[3]);
+						assert(tokenType == Tokens::TOK_DEALER_ID && "Token is not dealer id for the list command");
+						string dealerId = GetCurrentToken();
+
+						command = new ListCommand(commodityName,dealerId);
+						break;
+						}
+
+					default:
+						assert(0 && "Illegal tokens for List command");
+				}
 			
 			}else if (token == "AGGRESS") {			
-			
+				vector<AggressCommand::APair> argList;
+				assert(tokenStore.size()>= 4 && tokenStore.size()%2 == 0 && "Illegal tokens for Aggress command");
+				for(int i  = 2 ; i < tokenStore.size() ; i+=2) {
+
+					tokenType = GetToken(tokenStore[i]);
+				       	assert(tokenType == TOK_INTEGER && "Invalid Token for Aggress command");
+					int orderId = lexical_cast<int>(GetCurrentToken());
+
+					tokenType = GetToken(tokenStore[i+1]);
+				       	assert(tokenType == TOK_INTEGER && "Invalid Token for Aggress command");
+					int amount = lexical_cast<int>(GetCurrentToken());
+					
+					AggressCommand::APair argPair= {orderId,amount};
+					argList.push_back(argPair);
+				}
+				command = new AggressCommand(argList);
+
 			}else {
-				assert(0);
+				assert(0 && "Invalid Command");
 			}
 
                         command->execute();
