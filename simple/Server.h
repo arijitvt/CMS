@@ -17,21 +17,6 @@ using boost::system::error_code;
 using boost::system::system_error;
 using boost::asio::ip::tcp;
 
-class Server {
-	public:
-		Server(io_service& ios);
-
-	private:
-		void accept();
-
-	private:
-		ip::tcp::acceptor _acceptor;
-		static const int PORT = 7000;
-
-};
-
-
-//class tcp_connection
 //  : public boost::enable_shared_from_this<tcp_connection>
 
 class Connection:public boost::enable_shared_from_this<Connection> {
@@ -39,14 +24,30 @@ class Connection:public boost::enable_shared_from_this<Connection> {
 		typedef shared_ptr<Connection> pointer;
 		static pointer create(boost::asio::io_service &ios) ;
 		void start();
+		tcp::socket& getSocket();
 
         private:
         	tcp::socket _socket;
 
 	private:
                 Connection(io_service& _ios);
-		void writeHandler(error_code&, size_t);
+		void writeHandler(const error_code&, size_t);
 };
+
+class Server {
+	public:
+		Server(io_service& ios);
+
+	private:
+		void accept();
+		void serverWriteHandler(Connection::pointer,const error_code&);
+
+	private:
+		ip::tcp::acceptor _acceptor;
+		static const int PORT = 7000;
+
+};
+
 
 
 #endif
