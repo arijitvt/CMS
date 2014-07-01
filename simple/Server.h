@@ -1,52 +1,62 @@
-#ifndef SERVER_HH
-#define SERVER_HH
+#ifndef SERVER_H
+#define SERVER_H
 
 
 #include <iostream>
-#include <cstdlib>
+#include <string>
+
 using namespace std;
 
+
+
 #include <boost/asio.hpp>
-#include <boost/asio/ip/tcp.hpp>
+#include <boost/bind.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/bind.hpp>
 
-using namespace boost::asio;
-using boost::system::error_code;
-using boost::system::system_error;
+
 using boost::asio::ip::tcp;
 
-//  : public boost::enable_shared_from_this<tcp_connection>
 
-class Connection:public boost::enable_shared_from_this<Connection> {
+#define PORT 7000
+
+
+typedef boost::shared_ptr<boost::asio::io_service> ios_ptr;
+
+class Session:public boost::enable_shared_from_this<Session> {
 	public:
-		typedef shared_ptr<Connection> pointer;
-		static pointer create(boost::asio::io_service &ios) ;
+		Session(ios_ptr ios);
 		void start();
-		tcp::socket& getSocket();
+		boost::shared_ptr<tcp::socket> get_socket();
 
-        private:
-        	tcp::socket _socket;
+	private: //Private methods
+		void read_handler(const boost::system::error_code &ec, size_t data_transferred);
+		void write_handler(const boost::system::error_code &ec,size_t data_transferred);
 
-	private:
-                Connection(io_service& _ios);
-		void writeHandler(const error_code&, size_t);
+	private: //Private variables
+		boost::shared_ptr<tcp::socket> _socket;
+		ios_ptr _ios;
+		enum {max_msg_len = 1024};
+		char buf[max_msg_len];
+
 };
+
 
 class Server {
+
 	public:
-		Server(io_service& ios);
+		Server(ios_ptr ios,boost::shared_ptr<tcp::endpoint> ep);
+		void start_server() ;
 
 	private:
-		void accept();
-		void serverWriteHandler(Connection::pointer,const error_code&);
+		void accept_handler(const boost::system::error_code &ec,boost::shared_ptr<Session> session);
 
 	private:
-		ip::tcp::acceptor _acceptor;
-		static const int PORT = 7000;
+		ios_ptr _ios;
+		boost::shared_ptr<tcp::acceptor> _acceptor;
 
 };
+
 
 
 

@@ -1,8 +1,11 @@
 target=cms
 
 cc=g++
+
 cflags= -std=c++0x -c -g -I.  -I$(boost_inc)  -DDEBUG
-lflags= -L$(boost_lib) -lboost_system
+lflags= -L$(boost_lib) -lboost_system -lboost_thread -pthread
+                                         
+
 objs= Lexer.o Parser.o Commands.o MarketPlace.o main.o
 
 rm=rm -rf
@@ -14,9 +17,9 @@ all:$(objs)
 %.o:%.cpp 
 	$(cc) $(cflags) -o $@ $<
 
-ServerObj=Server.o ServerDriver.o
+ServerObj=Server.o  server_driver.o
 
-Server:$(ServerObj)
+server:$(ServerObj)
 	$(cc) $(ServerObj) -o Server $(lflags)
 
 clean:
