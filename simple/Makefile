@@ -22,7 +22,14 @@ ServerObj=Server.o  server_driver.o
 server:$(ServerObj)
 	$(cc) $(ServerObj) -o Server $(lflags)
 
+
+ClientObj=client.o
+
+client:$(ClientObj)
+	$(cc) $(ClientObj) -o Client $(lflags)
+
 clean:
 	$(rm) *.o
 	$(rm) $(target)
 	$(rm) Server
+	$(rm) Client

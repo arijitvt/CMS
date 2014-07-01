@@ -1,8 +1,6 @@
 #include <Server.h>
                                                                                                                                                             
-Session::Session(ios_ptr ios) : _ios(ios) {
-
-
+Session::Session(ios_ptr ios) : _ios(ios),_socket(new tcp::socket(*ios)) {
 }
 
 void Session::start() {
@@ -15,6 +13,7 @@ void Session::start() {
 void Session::read_handler(const boost::system::error_code &ec, 
 				size_t data_transferred) {
 	if(!ec) {
+		cout<<buf<<endl;
 		string msg = "Arijit Chattopadhyay";
 		boost::asio::async_write(*_socket,boost::asio::buffer(msg,msg.size()),
 				boost::bind(&Session::write_handler,shared_from_this(),
@@ -43,7 +42,8 @@ boost::shared_ptr<tcp::socket>  Session::get_socket() {
 //----------------------------------------------------------------------------------------------------
 
 Server::Server(ios_ptr ios, boost::shared_ptr<tcp::endpoint> ep) :_ios(ios) ,
-			_acceptor(new tcp::acceptor(*ios,*ep)) {
+			_acceptor(new tcp::acceptor(*_ios,*ep)) {
+				start_server();
 }
 
 
@@ -62,4 +62,4 @@ void Server::accept_handler(const boost::system::error_code &ec,boost::shared_pt
 	start_server();
 }
 
-
+//----------------------------------------------------------------------------------------------------
