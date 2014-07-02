@@ -11,8 +11,8 @@ Parser::Parser(MarketPtr market):_market(market) {
 
 }
 
-void Parser::doParse(string command) {
-	parsing(command);
+string Parser::doParse(string command) {
+	return parsing(command);
 }
 
 void Parser::doParse() {
@@ -21,13 +21,13 @@ void Parser::doParse() {
 		while(getline(cin,s)) {
 			parsing(s);
 		}
-	}
+	}	
 }
 
-void Parser::parsing(string input) {
+string Parser::parsing(string input) {
 		string s =input;
 		if(s == "STOP") 
-			return;
+			return "";
 
 		tokenizeLine(s);
 		int tokenType = GetToken(tokenStore[0]);
@@ -122,13 +122,16 @@ void Parser::parsing(string input) {
 			assert(0 && "Invalid Command");
 		}
 
-		command->execute(_market);
+
 
 #ifdef DEBUG
 		for(auto tok : tokenStore) {
 			GetToken(tok);
 		}
 #endif
+
+
+		return command->execute(_market);
 }
 
 

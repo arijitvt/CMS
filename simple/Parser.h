@@ -16,11 +16,11 @@ class Parser {
 	public:
 		Parser(MarketPtr market);
 		void doParse() ;
-		void doParse(string command);
+		string doParse(string command);
 
 
 	private:
-		void parsing(string input);
+		string parsing(string input);
 		void tokenizeLine(string);
 
 	private: //These are the private variables

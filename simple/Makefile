@@ -17,8 +17,6 @@ rm=rm -rf
 all: server client
 
 
-%.o:%.cpp 
-	$(cc) $(cflags) -o $@ $<
 
 ServerObj=$(objs) Server.o  server_driver.o
 Server.o:Server.h Server.cpp
@@ -26,6 +24,8 @@ Server.o:Server.h Server.cpp
 server:$(ServerObj)
 	$(cc) $(ServerObj) -o Server $(lflags)
 
+%.o:%.cpp 
+	$(cc) $(cflags) -o $@ $<
 
 ClientObj=client.o
 client.o:client.cpp
