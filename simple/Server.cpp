@@ -19,9 +19,8 @@ void Session::read_handler(const boost::system::error_code &ec,
 				boost::bind(&Session::write_handler,shared_from_this(),
 					boost::asio::placeholders::error,
 					boost::asio::placeholders::bytes_transferred));
+		for(;;){}
 	}
-
-
 }
 
 
@@ -56,6 +55,7 @@ void Server::start_server() {
 
 
 void Server::accept_handler(const boost::system::error_code &ec,boost::shared_ptr<Session> session) {
+	cout<<"Accepting connect"<<endl;
 	if(!ec) {
 		session->start();
 	}

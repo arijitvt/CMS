@@ -18,12 +18,14 @@ all:$(objs)
 	$(cc) $(cflags) -o $@ $<
 
 ServerObj=Server.o  server_driver.o
+Server.o:Server.h Server.cpp
 
 server:$(ServerObj)
 	$(cc) $(ServerObj) -o Server $(lflags)
 
 
 ClientObj=client.o
+client.o:client.cpp
 
 client:$(ClientObj)
 	$(cc) $(ClientObj) -o Client $(lflags)

@@ -1,13 +1,6 @@
 #include <iostream>
 using namespace std;
 
-//#include <boost/asio.hpp>
-//#include <boost/shared_ptr.hpp>
-//using boost::asio::ip::tcp;
-//
-//typedef boost::shared_ptr<boost::asio::io_service> ios_ptr;
-//
-
 #include  <Server.h>
 
 int main() {
