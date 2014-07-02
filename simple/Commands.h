@@ -8,17 +8,21 @@
 #include <cstdarg>
 using namespace std;
 
+#include <MarketPlace.h>
 
-class Command {  
-	public:
+
+
+class Command {
+
+	public:	
 		virtual ~Command();
-		virtual int execute() = 0;
+		virtual int execute(MarketPtr market) = 0;
 };
 
 class PostCommand:public Command {
 	public:
 		explicit PostCommand(string,string,int ,double);
-		int execute();
+		int execute(MarketPtr market);
 
 	private:
 		string buyOrSell;
@@ -30,7 +34,7 @@ class PostCommand:public Command {
 class RevokeCommand:public Command {
   	public:
 		explicit RevokeCommand(int id);
-		int execute();
+		int execute(MarketPtr market);
 
 	private:
 		int orderId;
@@ -42,7 +46,7 @@ class ListCommand:public Command {
 		ListCommand();
 		ListCommand(string);
 		ListCommand(string,string);
-		int execute();
+		int execute(MarketPtr market);
 
 	private:
 		string commodityName;
@@ -61,7 +65,7 @@ class AggressCommand:public Command {
 	public:
 		AggressCommand(int numOfArgs,...);
 		AggressCommand(vector<APair> apArg);
-		int execute();
+		int execute(MarketPtr market);
 
 
 	private:

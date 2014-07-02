@@ -19,7 +19,7 @@ int main() {
 	
 	boost::asio::connect(socket,itr);
 
-        string msg="This is the test message";
+        string msg="DB POST SELL SILV 12 23.23";
         boost::asio::write(socket,boost::asio::buffer(msg,msg.size()));
 
 

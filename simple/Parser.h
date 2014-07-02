@@ -14,13 +14,18 @@ using namespace std;
 
 class Parser {
 	public:
+		Parser(MarketPtr market);
 		void doParse() ;
+		void doParse(string command);
+
 
 	private:
+		void parsing(string input);
 		void tokenizeLine(string);
 
 	private: //These are the private variables
 		vector<string> tokenStore;
+		MarketPtr _market;
 
 };
 

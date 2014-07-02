@@ -5,13 +5,13 @@ MarketPlace::MarketPlace() {
 
 }
 
-MarketPlace* MarketPlace::getMarketPlaceSingleton() {
+boost::shared_ptr<MarketPlace> MarketPlace::getMarketPlaceSingleton() {
         boost::lock_guard<boost::mutex>guard(mtx);
 	if(singleObj == NULL) {
-		singleObj = new MarketPlace;
+		singleObj = boost::shared_ptr<MarketPlace>(new MarketPlace);
 	}
 	return singleObj;
 }                                            
 
-MarketPlace *MarketPlace::singleObj = NULL;
+boost::shared_ptr<MarketPlace> MarketPlace::singleObj = NULL;
 boost::mutex MarketPlace::mtx;

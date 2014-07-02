@@ -13,19 +13,22 @@ using namespace std;
 #include <boost/bind.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/shared_ptr.hpp>
-
+#include <boost/thread.hpp>
 
 using boost::asio::ip::tcp;
 
 
 #define PORT 7000
 
+#include <MarketPlace.h>
+#include <Parser.h>
+
 
 typedef boost::shared_ptr<boost::asio::io_service> ios_ptr;
 
 class Session:public boost::enable_shared_from_this<Session> {
 	public:
-		Session(ios_ptr ios);
+		Session(ios_ptr ios,MarketPtr market);
 		void start();
 		boost::shared_ptr<tcp::socket> get_socket();
 
@@ -38,6 +41,7 @@ class Session:public boost::enable_shared_from_this<Session> {
 		ios_ptr _ios;
 		enum {max_msg_len = 1024};
 		char buf[max_msg_len];
+		MarketPtr _market;
 
 };
 
@@ -54,6 +58,9 @@ class Server {
 	private:
 		ios_ptr _ios;
 		boost::shared_ptr<tcp::acceptor> _acceptor;
+		boost::thread_group worker_threads;
+		boost::mutex lock;
+		MarketPtr market;
 
 };
 
