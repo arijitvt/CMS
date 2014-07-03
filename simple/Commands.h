@@ -10,6 +10,8 @@ using namespace std;
 
 #include <MarketPlace.h>
 
+class MarketPlace;
+typedef boost::shared_ptr<MarketPlace> MarketPtr;
 
 class Command {
 
