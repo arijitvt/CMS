@@ -42,7 +42,7 @@ class MarketPlace {
 		static boost::mutex mtx;
 		static int order_id;
 
-		vector<CommodityPtr> commodity_store;
+		//vector<CommodityPtr> commodity_store;
 		vector<OrderInfoPtr> order_list;
 };
 

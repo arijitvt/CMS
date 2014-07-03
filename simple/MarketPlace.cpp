@@ -38,7 +38,7 @@ OrderInfoPtr MarketPlace::sale_commodity(PostCommand command,string dealer_id) {
 							command.get_commodity_name(),
 								command.get_commodity_price(),true));
 
-		commodity_store.push_back(commodity);
+		//commodity_store.push_back(commodity);
 		com_list.push_back(commodity);
 	}
 
@@ -60,7 +60,7 @@ OrderInfoPtr MarketPlace::buy_commodity(PostCommand command,string dealer_id) {
 							command.get_commodity_name(),
 								command.get_commodity_price(),false));
 
-		commodity_store.push_back(commodity);
+		//commodity_store.push_back(commodity);
 		com_list.push_back(commodity);
 	}
 
