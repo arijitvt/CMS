@@ -22,13 +22,13 @@ class Command {
 	public:	
 		Command(string suc_string,string fail_string);
 		virtual ~Command();
-		virtual string execute(MarketPtr market) = 0;
+		virtual string execute(MarketPtr market,string dealer_id) = 0;
 };
 
 class PostCommand:public Command {
 	public:
 		explicit PostCommand(string,string,int ,double);
-		string execute(MarketPtr market);
+		string execute(MarketPtr market,string dealer_id);
 
 
 		string get_buy_or_sell();
@@ -47,7 +47,7 @@ class PostCommand:public Command {
 class RevokeCommand:public Command {
   	public:
 		explicit RevokeCommand(int id);
-		string execute(MarketPtr market);
+		string execute(MarketPtr market,string dealer_id);
 
 	private:
 		int orderId;
@@ -59,7 +59,7 @@ class ListCommand:public Command {
 		ListCommand();
 		ListCommand(string);
 		ListCommand(string,string);
-		string execute(MarketPtr market);
+		string execute(MarketPtr market,string dealer_id);
 
 	private:
 		string commodityName;
@@ -78,7 +78,7 @@ class AggressCommand:public Command {
 	public:
 		AggressCommand(int numOfArgs,...);
 		AggressCommand(vector<APair> apArg);
-		string execute(MarketPtr market);
+		string execute(MarketPtr market,string dealer_id);
 
 
 	private:

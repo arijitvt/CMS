@@ -32,6 +32,8 @@ string Parser::parsing(string input) {
 		tokenizeLine(s);
 		int tokenType = GetToken(tokenStore[0]);
 		assert(tokenType == Tokens::TOK_DEALER_ID);
+		string dealer_id = GetCurrentToken();
+		cout<<"Dealer Id is  : "<<dealer_id<<endl;
 		tokenType = GetToken(tokenStore[1]);
 		assert(tokenType == Tokens::TOK_COMMAND); 
 		string token = GetCurrentToken();
@@ -131,7 +133,7 @@ string Parser::parsing(string input) {
 #endif
 
 
-		return command->execute(_market);
+		return command->execute(_market,dealer_id);
 }
 
 

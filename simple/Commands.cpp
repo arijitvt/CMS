@@ -20,7 +20,7 @@ PostCommand::PostCommand(string side, string cName,int amt,double prc)
 	commodityPrice = prc;
 }
 
-string PostCommand::execute(MarketPtr martket) {
+string PostCommand::execute(MarketPtr martket,string dealer_id) {
 	return success_string;
 }
 
@@ -47,7 +47,7 @@ RevokeCommand::RevokeCommand(int id):
 	orderId = id;
 }
 
-string RevokeCommand::execute(MarketPtr market) {
+string RevokeCommand::execute(MarketPtr market,string dealer_id) {
 	cout<<"Executing the Revoke command"<<endl;
  	return "";
 }
@@ -66,7 +66,7 @@ ListCommand::ListCommand(string cName,string dId):Command("","") {
 	dealerId = dId;
 }
 
-string ListCommand::execute(MarketPtr market) {
+string ListCommand::execute(MarketPtr market,string dealer_id) {
 	cout<<"Executing the List Command"<<endl;
 	return "";
 }
@@ -90,7 +90,7 @@ AggressCommand::AggressCommand(vector<APair> apArg)
 }
 
 
-string AggressCommand::execute(MarketPtr market) {
+string AggressCommand::execute(MarketPtr market,string dealer_id) {
 	cout<<"Executing the Aggress Command with the arg size = "<<apairList.size()<< endl;
 	return "";
 }
