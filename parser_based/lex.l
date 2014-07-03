@@ -4,6 +4,8 @@
 #include <string.h>
 #include "parser.h"
 
+#define ECHO fwrite(yytext, yyleng, 1, yyout)
+
 	void yyerror(const char *);
 %}
 
@@ -20,6 +22,7 @@
 	}
 
 DB|JPM|UBS|RBC|BARX|MS|CITI|BOFA|RBS|HSBC {
+		ECHO;
 		yylval.string = strdup(yytext);
 #ifdef DEBUG
 		printf("Dealer id is %s\n",yytext);
@@ -28,35 +31,42 @@ DB|JPM|UBS|RBC|BARX|MS|CITI|BOFA|RBS|HSBC {
 	}
 
 GOLD|SILV|PORK|OIL|RICE {                                                                           
+		ECHO;
 		yylval.string = strdup(yytext);
 		return TOK_COMMODITY;
 	}
 POST 	 {
+		ECHO;
 		return TOK_POST;
 	}
 REVOKE 	{
+		ECHO;
 		return TOK_REVOKE;
 	}
 CHECK 	{
+		ECHO;
 		return TOK_CHECK;
 	}
 LIST 	{
+		ECHO;
 		return TOK_LIST;
 	}
 AGGRESS {
+		ECHO;
 		return TOK_AGGRESS;
 	}
 
 BUY|SELL {     					
+		ECHO;
 		yylval.ival = !strcmp(yytext,"BUY");
 		return TOK_BUY;
 	}
+\n 	{
+	return TOK_ENDL;
+}
 
-"[" 	return TOK_LEFT_SQ_BRACE;
 
-"]" 	return TOK_RIGHT_SQ_BRACE;
-
-[ \n\t\r]+ /*Ignore whitespace*/
+[ \t\r]+ 	ECHO; /*Ignore whitespace*/
 . 	yyerror("Parsing error\n");
 
 %%

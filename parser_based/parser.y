@@ -20,6 +20,8 @@ OprNodeType* opr(OperationType opType, int nops,...);
 };
 
 
+%token TOK_ENDL
+
 %token <ival> 	TOK_INTEGER  
 %token <dval> 	TOK_DOUBLE
 %token <string> TOK_DEALER_ID 
@@ -47,7 +49,7 @@ QRY : /* */
     }
 ;
 
-INPUT_MESSAGE: DEALER_ID COMMAND  {
+INPUT_MESSAGE: DEALER_ID COMMAND TOK_ENDL {
 	       ex($1,$2);
 	     }
 ;	     
@@ -104,21 +106,11 @@ CHECK_COMMAND:TOK_CHECK ORDER_ID
 	     }
 ;
 
-LIST_COMMAND: TOK_LIST 
-	    {
-	    	printf("Smallest list command\n");
-		$$ = opr(LIST,0);
-	    }
-	    | TOK_LIST COMMODITY 
-	    {
-	    	printf("Medium list command\n");
-		$$ = opr(LIST,1,$2);
-	    }
-	    | TOK_LIST COMMODITY DEALER_ID 
+LIST_COMMAND: TOK_LIST COMMODITY DEALER_ID 
 	    {
 	    	printf("Largest list command\n");
 		$$ = opr(LIST,1,$2);
-	    }
+	    }  
 ;
 
 
