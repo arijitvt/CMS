@@ -24,8 +24,8 @@ typedef boost::shared_ptr<OrderInfo> OrderInfoPtr;
 class MarketPlace {
 	public:
 		static boost::shared_ptr<MarketPlace> getMarketPlaceSingleton();		
-		int sale_commodity(PostCommand command,string dealer_id);
-		int buy_commodity(PostCommand command,string dealer_id);
+		OrderInfoPtr sale_commodity(PostCommand command,string dealer_id);
+		OrderInfoPtr buy_commodity(PostCommand command,string dealer_id);
 		int cancel_order(int order_id);
 
 	private:

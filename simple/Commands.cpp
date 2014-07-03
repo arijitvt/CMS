@@ -20,14 +20,23 @@ PostCommand::PostCommand(string side, string cName,int amt,double prc)
 	commodityPrice = prc;
 }
 
-string PostCommand::execute(MarketPtr martket,string dealer_id) {
+string PostCommand::execute(MarketPtr market,string dealer_id) {
+	OrderInfoPtr order;
+	if(buyOrSell == "BUY") {
+		order  = market->buy_commodity(*this,dealer_id);
+	}else if(buyOrSell == "SELL") {
+		order = market->sale_commodity(*this,dealer_id);
+	}else {
+		assert(0 && "This is impossible case for the Post command");
+	}
+	success_string =order->to_string()+" Has been posted";
 	return success_string;
 }
 
 string PostCommand::get_buy_or_sell() {
 	return buyOrSell;
 }
-
+                                                              
 string PostCommand::get_commodity_name() {
 	return commodityName;
 }

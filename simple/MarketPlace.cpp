@@ -28,7 +28,7 @@ int MarketPlace::gen_order_id() {
  */
 
 //int MarketPlace::sell_commodity(string commodity_name,double commodity_price,int amount) {
-int MarketPlace::sale_commodity(PostCommand command,string dealer_id) {
+OrderInfoPtr MarketPlace::sale_commodity(PostCommand command,string dealer_id) {
 	assert(command.get_buy_or_sell() == "SELL");
 	vector<CommodityPtr> coms;
 	int o_id = gen_order_id();
@@ -43,14 +43,13 @@ int MarketPlace::sale_commodity(PostCommand command,string dealer_id) {
 		com_list.push_back(commodity);
 	}
 
-	boost::shared_ptr<OrderInfo> order(new OrderInfo(o_id,dealer_id,com_list));
+	boost::shared_ptr<OrderInfo> order(new OrderInfo(o_id,dealer_id,"SELL",com_list));
 	order_list.push_back(order);
-	return o_id;
+	return order;
 }
 
 
-int MarketPlace::buy_commodity(PostCommand command,string dealer_id) {
-
+OrderInfoPtr MarketPlace::buy_commodity(PostCommand command,string dealer_id) {
 	assert(command.get_buy_or_sell() == "BUY");
 	vector<CommodityPtr> coms;
 	int o_id = gen_order_id();
@@ -65,9 +64,9 @@ int MarketPlace::buy_commodity(PostCommand command,string dealer_id) {
 		com_list.push_back(commodity);
 	}
 
-	boost::shared_ptr<OrderInfo> order(new OrderInfo(o_id,dealer_id,com_list));
+	boost::shared_ptr<OrderInfo> order(new OrderInfo(o_id,dealer_id,"BUY",com_list));
 	order_list.push_back(order);
-	return o_id;
+	return order;
 }
 
 
