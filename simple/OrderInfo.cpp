@@ -63,6 +63,5 @@ string OrderInfo::to_string() {
 			boost::lexical_cast<string>(_commodity_list.size())+
 			" "+
 			boost::lexical_cast<string>(_commodity_list[0]->get_price());
-	cout<<"Output for the order info: "<<output<<endl;
 	return output;
 }
