@@ -11,7 +11,6 @@ using namespace std;
 #include <MarketPlace.h>
 
 
-
 class Command {
 
 	protected:
@@ -28,6 +27,12 @@ class PostCommand:public Command {
 	public:
 		explicit PostCommand(string,string,int ,double);
 		string execute(MarketPtr market);
+
+
+		string get_buy_or_sell();
+		string get_commodity_name();
+		int get_commodity_amount();
+		double get_commodity_price();
 
 	private:
 		string buyOrSell;

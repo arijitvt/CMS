@@ -6,7 +6,7 @@ cflags= -std=c++0x -c -g -I.  -I$(boost_inc)  -DDEBUG
 lflags= -L$(boost_lib) -lboost_system -lboost_thread -pthread
                                          
 
-objs= Lexer.o Parser.o Commands.o MarketPlace.o 
+objs= Lexer.o Parser.o Commands.o Commodity.o  OrderInfo.o MarketPlace.o  
 
 rm=rm -rf
 
@@ -34,7 +34,9 @@ client:$(ClientObj)
 	$(cc) $(ClientObj) -o Client $(lflags)
 
 clean:
-	$(rm) *.o
+	$(rm) $(ServerObj)
+	$(rm) $(ClientObj)
+	$(rm) $(objs)
 	$(rm) $(target)
 	$(rm) Server
 	$(rm) Client

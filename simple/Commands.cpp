@@ -1,15 +1,17 @@
 #include <Commands.h>
 
-
-Command::Command(string suc_string,string fail_string) :success_string(suc_string),
-	failure_string(fail_string) {
+//-------------------Command------------------------------------------------
+Command::Command(string suc_string,string fail_string) 
+	:success_string(suc_string),
+		failure_string(fail_string) {
 }
 
 Command::~Command() {
 
 }
+	
 
-
+//-------------------Post Command------------------------------------------------
 PostCommand::PostCommand(string side, string cName,int amt,double prc)
 	:Command("Success in Post Command","Failure in Post Command"){
 	buyOrSell = side;
@@ -22,6 +24,24 @@ string PostCommand::execute(MarketPtr martket) {
 	return success_string;
 }
 
+string PostCommand::get_buy_or_sell() {
+	return buyOrSell;
+}
+
+string PostCommand::get_commodity_name() {
+	return commodityName;
+}
+
+int PostCommand::get_commodity_amount() {
+	return commodityAmount;
+}
+
+
+double PostCommand::get_commodity_price() {
+	return commodityPrice;
+}
+
+//-------------------Revoke Command------------------------------------------------
 RevokeCommand::RevokeCommand(int id):
 	Command("Success in Revoke","Failure in Revoke"){
 	orderId = id;
@@ -32,6 +52,7 @@ string RevokeCommand::execute(MarketPtr market) {
  	return "";
 }
 
+//-------------------List Command------------------------------------------------
 ListCommand::ListCommand()
 	:Command("",""){
 }
@@ -50,6 +71,7 @@ string ListCommand::execute(MarketPtr market) {
 	return "";
 }
 
+//-------------------Aggress Command------------------------------------------------
 AggressCommand::AggressCommand(int numOfArgs,...) 
 	:Command("Success in Aggress","Failure in Aggress"){
 	va_list vararg;
