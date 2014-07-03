@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 #include <boost/thread/locks.hpp>
@@ -26,7 +27,7 @@ class MarketPlace {
 		static boost::shared_ptr<MarketPlace> getMarketPlaceSingleton();		
 		OrderInfoPtr sale_commodity(PostCommand command,string dealer_id);
 		OrderInfoPtr buy_commodity(PostCommand command,string dealer_id);
-		int cancel_order(int order_id);
+		OrderInfoPtr cancel_order(int order_id,string dealer_id);
 
 	private:
 		MarketPlace();

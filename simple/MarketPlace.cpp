@@ -27,7 +27,6 @@ int MarketPlace::gen_order_id() {
  * All the public methods for buying and selling the properties
  */
 
-//int MarketPlace::sell_commodity(string commodity_name,double commodity_price,int amount) {
 OrderInfoPtr MarketPlace::sale_commodity(PostCommand command,string dealer_id) {
 	assert(command.get_buy_or_sell() == "SELL");
 	vector<CommodityPtr> coms;
@@ -43,7 +42,8 @@ OrderInfoPtr MarketPlace::sale_commodity(PostCommand command,string dealer_id) {
 		com_list.push_back(commodity);
 	}
 
-	boost::shared_ptr<OrderInfo> order(new OrderInfo(o_id,dealer_id,"SELL",com_list));
+	boost::shared_ptr<OrderInfo> order(new OrderInfo(o_id,dealer_id,
+				"SELL",command.get_commodity_price(),com_list));
 	order_list.push_back(order);
 	return order;
 }
@@ -64,9 +64,14 @@ OrderInfoPtr MarketPlace::buy_commodity(PostCommand command,string dealer_id) {
 		com_list.push_back(commodity);
 	}
 
-	boost::shared_ptr<OrderInfo> order(new OrderInfo(o_id,dealer_id,"BUY",com_list));
+	boost::shared_ptr<OrderInfo> order(new OrderInfo(o_id,dealer_id,
+				"BUY",command.get_commodity_price(),com_list));
 	order_list.push_back(order);
 	return order;
+}
+
+OrderInfoPtr MarketPlace::cancel_order(int order_id,string dealer_id) {
+
 }
 
 

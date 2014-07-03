@@ -25,7 +25,6 @@ int main() {
 
         char buf[1024] = {0};
         int size = socket.read_some(boost::asio::buffer(buf,1024)) ;
-        cout<<"Size : " <<size<<endl;
         cout<<buf<<endl;
 
 
