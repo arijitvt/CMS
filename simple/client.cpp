@@ -29,9 +29,5 @@ int main() {
 		cout<<buf<<endl;
 		cout<<"cms>";
 	}
-
-
-
-
 	return 0;
 }
