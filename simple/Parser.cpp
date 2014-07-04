@@ -62,6 +62,7 @@ string Parser::parsing(string input) {
 			command = new PostCommand(buyOrSell,commodityName,amount,price);
 
 		}else if(token == "REVOKE") {
+			cout<<"Token store size " <<tokenStore.size()<<endl;
 			assert(tokenStore.size() == 3);
 			//Get the order id
 			tokenType = GetToken(tokenStore[2]);

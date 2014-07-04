@@ -35,6 +35,7 @@ class Session:public boost::enable_shared_from_this<Session> {
 	private: //Private methods
 		void read_handler(const boost::system::error_code &ec, size_t data_transferred);
 		void write_handler(const boost::system::error_code &ec,size_t data_transferred);
+		void clear_buffer();
 
 	private: //Private variables
 		boost::shared_ptr<tcp::socket> _socket;

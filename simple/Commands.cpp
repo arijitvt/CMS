@@ -29,7 +29,7 @@ string PostCommand::execute(MarketPtr market,string dealer_id) {
 	}else {
 		assert(0 && "This is impossible case for the Post command");
 	}
-	success_string =order->to_string()+" Has been posted";
+	success_string =order->to_string()+" HAS BEEN POSTED";
 	return success_string;
 }
 
@@ -58,7 +58,24 @@ RevokeCommand::RevokeCommand(int id):
 
 string RevokeCommand::execute(MarketPtr market,string dealer_id) {
 	cout<<"Executing the Revoke command"<<endl;
+	OrderInfoPtr order = market->cancel_order(orderId,dealer_id);
+	if(order) {
+		success_string= boost::lexical_cast<string>(orderId)+" HAS BEEN REVOKED";
+		return success_string;
+	}
  	return "";
+}
+
+//-------------------Check Command------------------------------------------------
+CheckCommand::CheckCommand(int id):
+	Command("Success from Check command","Failure from Check command") , 
+	_order_id(id) {
+
+}
+
+
+string CheckCommand::execute(MarketPtr market, string dealer_id) {
+
 }
 
 //-------------------List Command------------------------------------------------

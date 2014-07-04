@@ -71,6 +71,17 @@ OrderInfoPtr MarketPlace::buy_commodity(PostCommand command,string dealer_id) {
 }
 
 OrderInfoPtr MarketPlace::cancel_order(int order_id,string dealer_id) {
+	for(vector<OrderInfoPtr>::iterator itr = order_list.begin(); 
+			itr != order_list.end(); ++itr) {
+		OrderInfoPtr order = *itr;
+		if(order->get_order_id() == order_id &&
+				order->get_dealer_id() == dealer_id) {
+			order_list.erase(itr);
+			return order;
+		} 
+	}
+
+	return NULL;
 
 }
 

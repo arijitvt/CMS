@@ -16,6 +16,7 @@ void Session::read_handler(const boost::system::error_code &ec,
 		cout<<buf<<endl;
 		Parser parser(_market);
 		string msg = parser.doParse(buf);
+		clear_buffer();
 		if(msg.size() == 0) {
 			msg = "Blank Result";
 		}
@@ -40,6 +41,10 @@ boost::shared_ptr<tcp::socket>  Session::get_socket() {
 	return _socket;
 }
 
+
+void Session::clear_buffer() {
+	memset(buf,0,max_msg_len);
+}
 
 //----------------------------------------------------------------------------------------------------
 

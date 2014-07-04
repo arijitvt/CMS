@@ -28,7 +28,7 @@ class Command {
 class PostCommand:public Command {
 	public:
 		explicit PostCommand(string,string,int ,double);
-		string execute(MarketPtr market,string dealer_id);
+		virtual string execute(MarketPtr market,string dealer_id);
 
 
 		string get_buy_or_sell();
@@ -47,10 +47,20 @@ class PostCommand:public Command {
 class RevokeCommand:public Command {
   	public:
 		explicit RevokeCommand(int id);
-		string execute(MarketPtr market,string dealer_id);
+		virtual string execute(MarketPtr market,string dealer_id);
+
+	private:                                                            
+		int orderId;
+};
+
+
+class CheckCommand: public Command {
+	public:
+		explicit CheckCommand(int id);
+		string execute(MarketPtr market, string dealer_id);
 
 	private:
-		int orderId;
+		int _order_id;
 };
 
 

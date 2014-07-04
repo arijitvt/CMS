@@ -19,13 +19,16 @@ int main() {
 	
 	boost::asio::connect(socket,itr);
 
-        string msg="DB POST BUY SILV 12 23.23";
-        boost::asio::write(socket,boost::asio::buffer(msg,msg.size()));
+	string msg;
+	while(getline(cin,msg)) {
+//		string msg="DB POST BUY SILV 12 23.23";
+		boost::asio::write(socket,boost::asio::buffer(msg,msg.size()));
+		char buf[1024] = {0};
+		int size = socket.read_some(boost::asio::buffer(buf,1024)) ;
+		cout<<buf<<endl;
+	}
 
 
-        char buf[1024] = {0};
-        int size = socket.read_some(boost::asio::buffer(buf,1024)) ;
-        cout<<buf<<endl;
 
 
 	return 0;
