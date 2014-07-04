@@ -92,7 +92,7 @@ ListCommand::ListCommand(string cName,string dId):Command("","") {
 	dealerId = dId;
 }
 
-string ListCommand::execute(MarketPtr market,string dealer_id) {
+string ListCommand::execute(MarketPtr market,string dealer_id = "") {
 	cout<<"Executing the List Command"<<endl;
 	return "";
 }
