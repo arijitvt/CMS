@@ -1,4 +1,5 @@
 #include <Server.h>
+#include <Exceptions.h>
                                                                                                                                                             
 Session::Session(ios_ptr ios,MarketPtr market) : _ios(ios),_socket(new tcp::socket(*ios)),_market(market) {
 }
@@ -15,7 +16,12 @@ void Session::read_handler(const boost::system::error_code &ec,
 	if(!ec) {
 		cout<<buf<<endl;
 		Parser parser(_market);
-		string msg = parser.doParse(buf);
+		string msg ;
+		try {
+			msg= parser.doParse(buf);
+		} catch(CMSException &ex) {
+			msg = ex.what();
+		}
 		clear_buffer();
 		if(msg.size() == 0) {
 			msg = "Blank Result";

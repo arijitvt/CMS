@@ -4,12 +4,14 @@
 
 
 #include <string>
+#include <exception>
 using namespace std;
 
 
-class Exception {
+class CMSException:public exception {
 	public:
-		Exception(string msg);
+		CMSException(string msg);
+		virtual const char* what() const throw();
 
 	private:
 		string _exception_msg;

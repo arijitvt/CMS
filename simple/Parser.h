@@ -10,7 +10,7 @@ using namespace std;
 
 #include <Lexer.h>
 #include <Commands.h>
-
+#include <Exceptions.h>
 
 class Parser {
 	public:

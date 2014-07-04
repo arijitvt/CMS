@@ -18,6 +18,7 @@ class OrderInfo {
 		void insert_item_into_order(CommodityPtr item);		
 		void insert_item_into_order(vector<CommodityPtr> item_list);
 		bool remove_item_from_order(CommodityPtr item);
+		bool remove_item_from_order(int amount);
 
 		int get_order_id();
 		string get_dealer_id();

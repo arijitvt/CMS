@@ -138,5 +138,18 @@ AggressCommand::AggressCommand(vector<APair> apArg)
 
 string AggressCommand::execute(MarketPtr market,string dealer_id) {
 	cout<<"Executing the Aggress Command with the arg size = "<<apairList.size()<< endl;
-	return "";
+	string successful_aggress_orders="";
+	for(auto arg : apairList) {
+		OrderInfoPtr order  = market->aggress_order(arg.orderId,arg.amount);
+		if(order) {
+			string action = order->get_commodity_side() == "BUY"? "SOLD":"BOUGHT";
+			string amount = boost::lexical_cast<string>(arg.amount);
+			string commodity_name = order->get_commodity_name();
+			string price = boost::lexical_cast<string> (order->get_commodity_price());
+			string source_dealer_id =  order->get_dealer_id();
+			successful_aggress_orders +=
+				action+"  "+ amount+" "+commodity_name+" @ "+price+" FROM "+source_dealer_id+"\n";
+		}
+	}
+	return successful_aggress_orders;
 }

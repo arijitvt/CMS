@@ -29,7 +29,18 @@ bool OrderInfo::remove_item_from_order(CommodityPtr item) {
 
 
 	return false;
-}                                      
+}       
+
+bool OrderInfo::remove_item_from_order(int amount) {
+	if( _commodity_list.size() < amount)                                        
+		return false;
+	int i = 0;
+	for( vector<CommodityPtr>::iterator itr = _commodity_list.begin();
+			i < amount && itr != _commodity_list.end() ; ++i,++itr) {
+		//_commodity_list.pop();
+		_commodity_list.erase(itr);
+	}
+}
 
 int OrderInfo::get_order_id() {
 	return _order_id;

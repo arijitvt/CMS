@@ -32,6 +32,8 @@ class MarketPlace {
 
 		vector<OrderInfoPtr> get_order_list();
 
+		OrderInfoPtr aggress_order(int order_id,int amount);
+
 	private:
 		MarketPlace();
 		MarketPlace(MarketPlace const&); // Copy constructor overloaded

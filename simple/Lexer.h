@@ -23,7 +23,7 @@ typedef enum {
 
 static array<string,10> DEALER_ID_TOKENS 	= {"DB","JPM","UBS","RBC","BARX","MS","CITI","BOFA","RBS","HSBC"};
 static array<string,5>  COMMODITY_TOKENS 	= {"GOLD","SILV","PORK","OIL","RICE"};
-static array<string,4>  COMMAND_TOKENS 		= {"POST","REVOKE","LIST","AGGRESS"};
+static array<string,5>  COMMAND_TOKENS 		= {"POST","REVOKE","CHECK","LIST","AGGRESS"};
 static array<string,2>  SIDE_TOKENS 		= {"BUY","SELL"};
 
 static stringstream ss;

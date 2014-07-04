@@ -103,6 +103,23 @@ vector<OrderInfoPtr> MarketPlace::get_order_list() {
 }
 
 
+OrderInfoPtr MarketPlace::aggress_order(int order_id, int amount) {
+	for(vector<OrderInfoPtr>::iterator itr = order_list.begin(); 
+			itr != order_list.end(); ++itr) {
+		OrderInfoPtr order = *itr;
+		if(order->get_order_id() == order_id &&
+				order->get_commodity_list_size() >= amount) {
+			//deduce the amount of commodities
+			order->remove_item_from_order(amount);
+			if(order->get_commodity_list_size() == 0) {
+				order_list.erase(itr);
+			}
+			return order;
+		}
+	}
+	return NULL;
+}
+
 
 boost::shared_ptr<MarketPlace> MarketPlace::singleObj = NULL;
 boost::mutex MarketPlace::mtx;
