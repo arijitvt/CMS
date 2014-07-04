@@ -75,7 +75,12 @@ CheckCommand::CheckCommand(int id):
 
 
 string CheckCommand::execute(MarketPtr market, string dealer_id) {
-
+	cout<<"Executing Check command by "<<dealer_id<<endl;
+	OrderInfoPtr order = market->check_order(_order_id,dealer_id);
+	if(order) {
+		success_string = order->to_string();
+	}
+	return "";
 }
 
 //-------------------List Command------------------------------------------------
@@ -87,14 +92,29 @@ ListCommand::ListCommand(string cName):Command("","") {
 	commodityName = cName;
 }
 
-ListCommand::ListCommand(string cName,string dId):Command("","") {
-	commodityName = cName;
-	dealerId = dId;
+ListCommand::ListCommand(string cName,string f_did):Command("","") {
+	commodityName 		= cName;
+	filter_dealer_id 	= f_did;
 }
 
-string ListCommand::execute(MarketPtr market,string dealer_id = "") {
-	cout<<"Executing the List Command"<<endl;
-	return "";
+
+string ListCommand::execute(MarketPtr market,string dealer_id) {
+	cout<<"Executing the List Command for "<<dealer_id<<endl;
+	vector<OrderInfoPtr> order_list = market->get_order_list();
+	for(auto  order : order_list) {
+		if(commodityName != "" && commodityName.size() != 0
+				&& commodityName != order->get_commodity_name()) {
+			continue;
+		}
+		if( filter_dealer_id != "" && filter_dealer_id.size() != 0 
+				&& filter_dealer_id != order->get_dealer_id()) {
+			continue;
+		}
+		success_string += order->to_string();
+		success_string += "\n";
+	}
+	success_string += "END OF LIST";
+	return success_string;
 }
 
 //-------------------Aggress Command------------------------------------------------

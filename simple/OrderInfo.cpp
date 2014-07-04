@@ -51,6 +51,10 @@ double OrderInfo::get_commodity_price() {
 	return _price;
 }
 
+string OrderInfo::get_commodity_name() {
+	return _commodity_list[0]->get_name();
+}
+
 string OrderInfo::to_string() {
 	string output = boost::lexical_cast<string>(_order_id)+
 			" "+

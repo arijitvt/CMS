@@ -24,6 +24,7 @@ class OrderInfo {
 		string get_commodity_side();
 		double get_commodity_price();
 		int get_commodity_list_size();
+		string get_commodity_name();
 
 		string to_string();
 

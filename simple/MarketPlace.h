@@ -28,6 +28,9 @@ class MarketPlace {
 		OrderInfoPtr sale_commodity(PostCommand command,string dealer_id);
 		OrderInfoPtr buy_commodity(PostCommand command,string dealer_id);
 		OrderInfoPtr cancel_order(int order_id,string dealer_id);
+		OrderInfoPtr check_order(int order_id,string dealer_id);
+
+		vector<OrderInfoPtr> get_order_list();
 
 	private:
 		MarketPlace();

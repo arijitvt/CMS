@@ -80,11 +80,27 @@ OrderInfoPtr MarketPlace::cancel_order(int order_id,string dealer_id) {
 			return order;
 		} 
 	}
-
 	return NULL;
-
 }
 
+OrderInfoPtr MarketPlace::check_order(int order_id, string dealer_id) {
+	
+	for(vector<OrderInfoPtr>::iterator itr = order_list.begin(); 
+			itr != order_list.end(); ++itr) {
+		OrderInfoPtr order = *itr;
+		if(order->get_order_id() == order_id &&
+				order->get_dealer_id() == dealer_id) {
+			return order;
+		} 
+	}
+	return NULL;
+}
+
+
+
+vector<OrderInfoPtr> MarketPlace::get_order_list() {
+	return order_list;
+}
 
 
 

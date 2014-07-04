@@ -73,7 +73,7 @@ class ListCommand:public Command {
 
 	private:
 		string commodityName;
-		string dealerId;
+		string filter_dealer_id;
 
 };
 

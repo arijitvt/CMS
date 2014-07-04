@@ -62,7 +62,6 @@ string Parser::parsing(string input) {
 			command = new PostCommand(buyOrSell,commodityName,amount,price);
 
 		}else if(token == "REVOKE") {
-			cout<<"Token store size " <<tokenStore.size()<<endl;
 			assert(tokenStore.size() == 3);
 			//Get the order id
 			tokenType = GetToken(tokenStore[2]);
@@ -71,6 +70,15 @@ string Parser::parsing(string input) {
 
 			command = new RevokeCommand(id);
 
+
+		}else if(token == "CHECK") {
+			assert(tokenStore.size() == 3 && "There should be 3 tokens for CHECK command") ;			
+			//Get the order id
+			tokenType = GetToken(tokenStore[2]);
+			assert(tokenType == Tokens::TOK_INTEGER);
+			int id = boost::lexical_cast<int>(GetCurrentToken());
+
+			command = new CheckCommand(id);
 
 		}else if(token == "LIST") {
 			assert(tokenStore.size() >= 2 && tokenStore.size() <= 4 && "Illegal tokens are supplied to the list command") ;
