@@ -78,6 +78,8 @@ OrderInfoPtr MarketPlace::cancel_order(int order_id,string dealer_id) {
 				order->get_dealer_id() == dealer_id) {
 			order_list.erase(itr);
 			return order;
+		}else if (order->get_order_id() == order_id && order->get_dealer_id() != dealer_id) {
+			throw CMSException(ErrorMsgs::UN_AUTH);
 		} 
 	}
 	return NULL;

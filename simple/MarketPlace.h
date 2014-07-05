@@ -16,6 +16,8 @@ using namespace std;
 #include <Commodity.h>
 #include <Commands.h>
 #include <OrderInfo.h>
+#include <Exceptions.h>
+#include <ErrorMsgs.h>
 
 class PostCommand;
 class OrderInfo;

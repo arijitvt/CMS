@@ -52,17 +52,24 @@ double PostCommand::get_commodity_price() {
 
 //-------------------Revoke Command------------------------------------------------
 RevokeCommand::RevokeCommand(int id):
-	Command("Success in Revoke","Failure in Revoke"){
+	Command("Success in Revoke",ErrorMsgs::UN_ORDER){
 	orderId = id;
 }
 
 string RevokeCommand::execute(MarketPtr market,string dealer_id) {
 	cout<<"Executing the Revoke command"<<endl;
-	OrderInfoPtr order = market->cancel_order(orderId,dealer_id);
-	if(order) {
-		success_string= boost::lexical_cast<string>(orderId)+" HAS BEEN REVOKED";
-		return success_string;
+	try {
+		OrderInfoPtr order = market->cancel_order(orderId,dealer_id);
+		if(order) {
+			success_string= boost::lexical_cast<string>(orderId)+" HAS BEEN REVOKED";
+			return success_string;
+		}else {
+			return failure_string;
+		}    
+	}catch(CMSException &ex) {
+		return ex.what();
 	}
+
  	return "";
 }
 

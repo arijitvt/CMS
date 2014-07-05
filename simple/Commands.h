@@ -9,6 +9,8 @@
 using namespace std;
 
 #include <MarketPlace.h>
+#include <Exceptions.h>
+#include <ErrorMsgs.h>
 
 class MarketPlace;
 typedef boost::shared_ptr<MarketPlace> MarketPtr;
