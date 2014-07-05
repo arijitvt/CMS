@@ -51,6 +51,8 @@ class Server {
 
 	public:
 		Server(ios_ptr ios,boost::shared_ptr<tcp::endpoint> ep);
+		Server(ios_ptr ios,boost::shared_ptr<tcp::endpoint> ep,bool multi_threaded, int thread_count);
+		
 		void start_server() ;
 
 	private:
@@ -62,6 +64,7 @@ class Server {
 		boost::thread_group worker_threads;
 		boost::mutex lock;
 		MarketPtr market;
+		bool _multi_threaded;
 
 };
 

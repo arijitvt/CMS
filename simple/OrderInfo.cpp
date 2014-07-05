@@ -37,6 +37,7 @@ bool OrderInfo::remove_item_from_order(int amount) {
 		return false;
 	size_t sz = _commodity_list.size();
 	_commodity_list.resize(_commodity_list.size()-amount);
+
 	//int i = 0;
 	//for( vector<CommodityPtr>::iterator itr = _commodity_list.begin();
 	//		i < amount && itr != _commodity_list.end() ; ++i,++itr) {

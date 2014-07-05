@@ -45,4 +45,4 @@ clean:
 	$(rm) $(target)
 	$(rm) Server
 	$(rm) Client
-	$(rm) html
+	$(rm) doc/html
