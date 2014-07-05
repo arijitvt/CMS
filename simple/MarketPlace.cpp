@@ -111,9 +111,9 @@ OrderInfoPtr MarketPlace::aggress_order(int order_id, int amount) {
 				order->get_commodity_list_size() >= amount) {
 			//deduce the amount of commodities
 			order->remove_item_from_order(amount);
-			if(order->get_commodity_list_size() == 0) {
-				order_list.erase(itr);
-			}
+		       // if(order->get_commodity_list_size() == 0) {
+		       // 	order_list.erase(itr);
+		       // }
 			return order;
 		}
 	}

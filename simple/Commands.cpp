@@ -77,10 +77,15 @@ CheckCommand::CheckCommand(int id):
 string CheckCommand::execute(MarketPtr market, string dealer_id) {
 	cout<<"Executing Check command by "<<dealer_id<<endl;
 	OrderInfoPtr order = market->check_order(_order_id,dealer_id);
-	if(order) {
+	if(order && order->get_commodity_list_size() == 0 ) {
+		success_string = boost::lexical_cast<string>(order->get_order_id())+
+					" HAS BEEN FILLED";
+	}else if (order) {
 		success_string = order->to_string();
+	} else {
+		return "";
 	}
-	return "";
+	return success_string;
 }
 
 //-------------------List Command------------------------------------------------
