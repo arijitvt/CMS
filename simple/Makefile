@@ -2,6 +2,8 @@ target=cms
 
 cc=g++
 
+doc=doxygen
+
 cflags= -std=c++0x -c -g -I.  -I$(boost_inc)  -DDEBUG
 lflags= -L$(boost_lib) -lboost_system -lboost_thread -pthread
                                          
@@ -33,6 +35,9 @@ client.o:client.cpp
 client:$(ClientObj)
 	$(cc) $(ClientObj) -o Client $(lflags)
 
+docgen:
+	$(doc) doc/config
+
 clean:
 	$(rm) $(ServerObj)
 	$(rm) $(ClientObj)
@@ -40,3 +45,4 @@ clean:
 	$(rm) $(target)
 	$(rm) Server
 	$(rm) Client
+	$(rm) html

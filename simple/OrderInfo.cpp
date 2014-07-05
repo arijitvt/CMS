@@ -32,14 +32,18 @@ bool OrderInfo::remove_item_from_order(CommodityPtr item) {
 }       
 
 bool OrderInfo::remove_item_from_order(int amount) {
+	cout<<"Amount came : "<<amount<<endl;
 	if( _commodity_list.size() < amount)                                        
 		return false;
-	int i = 0;
-	for( vector<CommodityPtr>::iterator itr = _commodity_list.begin();
-			i < amount && itr != _commodity_list.end() ; ++i,++itr) {
-		//_commodity_list.pop();
-		_commodity_list.erase(itr);
-	}
+	size_t sz = _commodity_list.size();
+	_commodity_list.resize(_commodity_list.size()-amount);
+	//int i = 0;
+	//for( vector<CommodityPtr>::iterator itr = _commodity_list.begin();
+	//		i < amount && itr != _commodity_list.end() ; ++i,++itr) {
+	//	//_commodity_list.pop();
+	//	_commodity_list.erase(itr);
+	//	cout<<"Count :"<<i<<endl;
+	//}
 }
 
 int OrderInfo::get_order_id() {

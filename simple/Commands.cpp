@@ -27,7 +27,8 @@ string PostCommand::execute(MarketPtr market,string dealer_id) {
 	}else if(buyOrSell == "SELL") {
 		order = market->sale_commodity(*this,dealer_id);
 	}else {
-		assert(0 && "This is impossible case for the Post command");
+	//	assert(0 && "This is impossible case for the Post command");
+		throw CMSException("This is impossible case for the POST command");
 	}
 	success_string =order->to_string()+" HAS BEEN POSTED";
 	return success_string;
@@ -90,7 +91,7 @@ string CheckCommand::execute(MarketPtr market, string dealer_id) {
 	}else if (order) {
 		success_string = order->to_string();
 	} else {
-		return "";
+		return ErrorMsgs::UN_ORDER;
 	}
 	return success_string;
 }
@@ -161,6 +162,8 @@ string AggressCommand::execute(MarketPtr market,string dealer_id) {
 			string source_dealer_id =  order->get_dealer_id();
 			successful_aggress_orders +=
 				action+"  "+ amount+" "+commodity_name+" @ "+price+" FROM "+source_dealer_id+"\n";
+		}else {
+			return ErrorMsgs::UN_ORDER;
 		}
 	}
 	return successful_aggress_orders;

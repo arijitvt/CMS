@@ -28,7 +28,10 @@ int MarketPlace::gen_order_id() {
  */
 
 OrderInfoPtr MarketPlace::sale_commodity(PostCommand command,string dealer_id) {
-	assert(command.get_buy_or_sell() == "SELL");
+	//assert(command.get_buy_or_sell() == "SELL");
+	if(command.get_buy_or_sell() != "SELL") {
+		throw CMSException("POST Command is not sending the action(BUY/SELL to "+string(__func__));	
+	}
 	vector<CommodityPtr> coms;
 	int o_id = gen_order_id();
 	int amount = command.get_commodity_amount();
@@ -50,7 +53,10 @@ OrderInfoPtr MarketPlace::sale_commodity(PostCommand command,string dealer_id) {
 
 
 OrderInfoPtr MarketPlace::buy_commodity(PostCommand command,string dealer_id) {
-	assert(command.get_buy_or_sell() == "BUY");
+	//assert(command.get_buy_or_sell() == "BUY");
+	if(command.get_buy_or_sell() != "BUY") {
+		throw CMSException("POST Command is not sending the action(BUY/SELL to "+string(__func__));	
+	}
 	vector<CommodityPtr> coms;
 	int o_id = gen_order_id();
 	int amount = command.get_commodity_amount();
