@@ -8,6 +8,8 @@ using namespace std;
 
 #include <boost/shared_ptr.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/thread/mutex.hpp>
+#include <boost/lockfree/queue.hpp>
 
 #include <Commodity.h>
 
@@ -34,6 +36,7 @@ class OrderInfo {
 		string _dealer_id;
 		string _side;
 		double _price;
+		boost::mutex _order_info_lock;
 		vector<CommodityPtr> _commodity_list;
 };
 

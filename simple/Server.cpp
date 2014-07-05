@@ -69,7 +69,7 @@ Server::Server(ios_ptr ios,boost::shared_ptr<tcp::endpoint> ep,bool multi_thread
 	}else {
 		for(int  i = 0 ; i < thread_count; ++i) {
 			//Every thread will get their own session
-			worker_threads.create_thread(boost::bind(&Server::start_server,this,start_server));
+			worker_threads.create_thread(boost::bind(&Server::start_server,this));
 		}
 		worker_threads.join_all();
 	}
