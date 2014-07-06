@@ -34,7 +34,6 @@ OrderInfoPtr MarketPlace::sale_commodity(PostCommand command,string dealer_id) {
 		throw CMSException("POST Command is not sending the action(BUY/SELL to "+string(__func__));	
 	}
 	vector<CommodityPtr> coms;
-	int o_id = gen_order_id();
 	int amount = command.get_commodity_amount();
 	vector<CommodityPtr> com_list;
 	for(int i   = 0 ;  i < amount; ++i) {
@@ -46,6 +45,7 @@ OrderInfoPtr MarketPlace::sale_commodity(PostCommand command,string dealer_id) {
 		com_list.push_back(commodity);
 	}
 
+	int o_id = gen_order_id();
 	boost::shared_ptr<OrderInfo> order(new OrderInfo(o_id,dealer_id,
 				"SELL",command.get_commodity_price(),com_list));
 	order_list.push_back(order);
@@ -59,7 +59,6 @@ OrderInfoPtr MarketPlace::buy_commodity(PostCommand command,string dealer_id) {
 		throw CMSException("POST Command is not sending the action(BUY/SELL to "+string(__func__));	
 	}
 	vector<CommodityPtr> coms;
-	int o_id = gen_order_id();
 	int amount = command.get_commodity_amount();
 	vector<CommodityPtr> com_list;
 	for(int i   = 0 ;  i < amount; ++i) {
@@ -71,6 +70,7 @@ OrderInfoPtr MarketPlace::buy_commodity(PostCommand command,string dealer_id) {
 		com_list.push_back(commodity);
 	}
 
+	int o_id = gen_order_id();
 	boost::shared_ptr<OrderInfo> order(new OrderInfo(o_id,dealer_id,
 				"BUY",command.get_commodity_price(),com_list));
 	order_list.push_back(order);

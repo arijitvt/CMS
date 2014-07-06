@@ -21,6 +21,9 @@ void Session::read_handler(const boost::system::error_code &ec,
 			msg= parser.doParse(buf);
 		} catch(CMSException &ex) {
 			msg = ex.what();
+		}catch(exception &ex) {
+			msg = "UNKNOWN EXCEPTION";
+			cout<<ex.what()<<endl;
 		}
 		clear_buffer();
 		if(msg.size() == 0) {
