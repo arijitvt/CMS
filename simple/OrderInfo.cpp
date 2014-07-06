@@ -3,7 +3,9 @@
 
 OrderInfo::OrderInfo(int  id, string did, string side,double price,
 		vector<CommodityPtr> item_list) 
-	:_order_id(id),_dealer_id(did),_price(price), _side(side),
+	:_order_id(id),_dealer_id(did),_price(price), 
+	_commodity_name((*item_list.begin())->get_name()),
+	_side(side),
 		_commodity_list(item_list.begin(), item_list.end()) {
 	
 }
@@ -38,7 +40,6 @@ bool OrderInfo::remove_item_from_order(CommodityPtr item) {
 }       
 
 bool OrderInfo::remove_item_from_order(int amount) {
-	cout<<"Amount came : "<<amount<<endl;
 	if( _commodity_list.size() < amount)                                        
 		return false;
 	size_t sz = _commodity_list.size();
@@ -76,22 +77,24 @@ double OrderInfo::get_commodity_price() {
 }
 
 string OrderInfo::get_commodity_name() {
-	return _commodity_list[0]->get_name();
+//	return _commodity_list[0]->get_name();
+	return _commodity_name;
 }
 
 string OrderInfo::to_string() {
-	_order_info_lock.lock();
+	//_order_info_lock.lock();
 	string output = boost::lexical_cast<string>(_order_id)+
 			" "+
 			_dealer_id+
 			" "+
 			_side+
 			" "+
-			_commodity_list[0]->get_name()+
+			_commodity_name+
+			//_commodity_list[0]->get_name()+
 			" "+
 			boost::lexical_cast<string>(_commodity_list.size())+
 			" "+
 			boost::lexical_cast<string>(_commodity_list[0]->get_price());
-	_order_info_lock.unlock();
+	//_order_info_lock.unlock();
 	return output;
 }

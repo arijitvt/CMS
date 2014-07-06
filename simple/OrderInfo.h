@@ -36,6 +36,7 @@ class OrderInfo {
 		string _dealer_id;
 		string _side;
 		double _price;
+		string _commodity_name;
 		boost::mutex _order_info_lock;
 		vector<CommodityPtr> _commodity_list;
 };
