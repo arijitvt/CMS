@@ -91,7 +91,7 @@ string CheckCommand::execute(MarketPtr market, string dealer_id) {
 	}else if (order) {
 		success_string = order->to_string();
 	} else {
-		return ErrorMsgs::UN_ORDER;
+		return ErrorMsgs::UN_AUTH;
 	}
 	return success_string;
 }

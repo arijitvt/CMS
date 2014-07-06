@@ -11,6 +11,7 @@ using namespace std;
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/lock_guard.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/atomic.hpp>
 
 
 #include <Commodity.h>
@@ -48,6 +49,7 @@ class MarketPlace {
 		static boost::shared_ptr<MarketPlace> singleObj;
 		static boost::mutex mtx;
 		static int order_id;
+		//boost::atomic_int order_id;
 
 		//vector<CommodityPtr> commodity_store;
 		vector<OrderInfoPtr> order_list;

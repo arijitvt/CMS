@@ -19,6 +19,7 @@ void MarketPlace::init_commodity_store() {
 }
 
 int MarketPlace::gen_order_id() {
+        boost::lock_guard<boost::mutex>guard(mtx);
 	return 	++order_id;
 }
 
@@ -131,4 +132,5 @@ OrderInfoPtr MarketPlace::aggress_order(int order_id, int amount) {
 
 boost::shared_ptr<MarketPlace> MarketPlace::singleObj = NULL;
 boost::mutex MarketPlace::mtx;
-int MarketPlace::order_id = 0 ;
+int MarketPlace::order_id = 0;
+//boost::atomic_int MarketPlace::order_id(0) ;
