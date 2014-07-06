@@ -20,7 +20,7 @@ all: server client
 
 
 
-ServerObj=$(objs) Server.o  server_driver.o
+ServerObj=$(objs) Session.o Server.o  server_driver.o
 Server.o:Server.h Server.cpp
 
 server:$(ServerObj)
