@@ -1,4 +1,5 @@
 #include <OrderInfo.h>
+#include <Utility.h>
 
 
 OrderInfo::OrderInfo(int  id, string did, string side,double price,
@@ -94,7 +95,7 @@ string OrderInfo::to_string() {
 			" "+
 			boost::lexical_cast<string>(_commodity_list.size())+
 			" "+
-			boost::lexical_cast<string>(_commodity_list[0]->get_price());
+			Utility::convert_double_to_string(_commodity_list[0]->get_price());
 	//_order_info_lock.unlock();
 	return output;
 }

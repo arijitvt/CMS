@@ -1,4 +1,5 @@
 #include <Commands.h>
+#include <Utility.h>
 
 //-------------------Command------------------------------------------------
 Command::Command(string suc_string,string fail_string) 
@@ -158,7 +159,7 @@ string AggressCommand::execute(MarketPtr market,string dealer_id) {
 			string action = order->get_commodity_side() == "BUY"? "SOLD":"BOUGHT";
 			string amount = boost::lexical_cast<string>(arg.amount);
 			string commodity_name = order->get_commodity_name();
-			string price = boost::lexical_cast<string> (order->get_commodity_price());
+			string price = Utility::convert_double_to_string(order->get_commodity_price());
 			string source_dealer_id =  order->get_dealer_id();
 			successful_aggress_orders +=
 				action+"  "+ amount+" "+commodity_name+" @ "+price+" FROM "+source_dealer_id+"\n";

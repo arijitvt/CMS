@@ -8,7 +8,7 @@ cflags= -std=c++0x -c -g -I.  -I$(boost_inc)  -DDEBUG
 lflags= -L$(boost_lib) -lboost_system -lboost_thread -pthread
                                          
 
-objs= ErrorMsgs.o Exceptions.o Lexer.o Parser.o Commands.o Commodity.o  OrderInfo.o MarketPlace.o  
+objs= Utility.o ErrorMsgs.o Exceptions.o Lexer.o Parser.o Commands.o Commodity.o  OrderInfo.o MarketPlace.o  
 
 rm=rm -rf
 
