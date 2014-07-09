@@ -19,12 +19,19 @@ void Parser::doParse() {
 	while(1) {
 		string s ;
 		while(getline(cin,s)) {
-			parsing(s);
+			try {
+				parsing(s,true);
+			} catch(CMSException &ex) {
+				cout<<ex.what()<<endl;
+			} catch(std::exception &exc) {
+				cout<<exc.what()<<endl;
+			}
+			cout<<"cms>";
 		}
 	}	
 }
 
-string Parser::parsing(string input) {
+string Parser::parsing(string input,bool client_only) {
 		string s =input;
 		if(s == "STOP") 
 			return "";
@@ -158,7 +165,7 @@ string Parser::parsing(string input) {
 		}else if (token == "AGGRESS") {			
 			vector<AggressCommand::APair> argList;
 			//assert(tokenStore.size()>= 4 && tokenStore.size()%2 == 0 && "Illegal tokens for Aggress command");
-			if (tokenStore.size() < 4 && tokenStore.size()%2 != 0) {
+			if (tokenStore.size() < 4 || tokenStore.size()%2 != 0) {
 					throw CMSException("Illegal tokens for Aggress command");
 			}
 			for(int i  = 2 ; i < tokenStore.size() ; i+=2) {
@@ -195,8 +202,10 @@ string Parser::parsing(string input) {
 		}
 #endif
 
+		if(!client_only)
+			return command->execute(_market,dealer_id);
 
-		return command->execute(_market,dealer_id);
+		cout<<command->execute(_market,dealer_id)<<endl;
 }
 
 

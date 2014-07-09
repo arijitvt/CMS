@@ -29,7 +29,7 @@ server:$(ServerObj)
 %.o:%.cpp 
 	$(cc) $(cflags) -o $@ $<
 
-ClientObj=client.o
+ClientObj= $(objs) client.o
 client.o:client.cpp
 
 client:$(ClientObj)

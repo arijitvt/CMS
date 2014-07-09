@@ -20,7 +20,7 @@ class Parser {
 
 
 	private:
-		string parsing(string input);
+		string parsing(string input,bool client_only=true);
 		void tokenizeLine(string);
 
 	private: //These are the private variables
