@@ -35,6 +35,14 @@ Server::Server(ios_ptr ios,boost::shared_ptr<tcp::endpoint> ep,
 	}
 }
 
+Server::~Server() {
+	boost::system::error_code ec;
+	_acceptor->close(ec);
+	if(ec) {
+		cout<<"Error in closing the acceptor"<<endl;
+	}
+}
+
 /** This method will actually start the server by creating a new session.
  * Thus every thread will get a new session for them, listening to the same port.
  */

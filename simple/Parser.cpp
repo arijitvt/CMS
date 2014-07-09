@@ -12,7 +12,7 @@ Parser::Parser(MarketPtr market):_market(market) {
 }
 
 string Parser::doParse(string command) {
-	return parsing(command);
+	return parsing(command,false);
 }
 
 void Parser::doParse() {

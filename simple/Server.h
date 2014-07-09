@@ -11,6 +11,7 @@ class Server {
 	public:
 		Server(ios_ptr ios,boost::shared_ptr<tcp::endpoint> ep);
 		Server(ios_ptr ios,boost::shared_ptr<tcp::endpoint> ep,bool multi_threaded, int thread_count= 10);
+		~Server();
 		
 		void start_server() ;
 

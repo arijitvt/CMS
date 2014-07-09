@@ -4,6 +4,15 @@
 Session::Session(ios_ptr ios,MarketPtr market) : _ios(ios),_socket(new tcp::socket(*ios)),_market(market) {
 }
 
+Session::~Session() {
+	boost::system::error_code ec;
+	_socket->shutdown( boost::asio::ip::tcp::socket::shutdown_both, ec );
+	_socket->close( ec );
+	if(ec) {
+		cout<<"Error in closing socket"<<endl;
+	}
+}
+
 void Session::start() {
 	_socket->async_read_some(boost::asio::buffer(buf,max_msg_len),
 			boost::bind(&Session::read_handler,shared_from_this(),

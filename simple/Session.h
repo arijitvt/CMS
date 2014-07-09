@@ -26,6 +26,7 @@ typedef boost::shared_ptr<boost::asio::io_service> ios_ptr;
 class Session:public boost::enable_shared_from_this<Session> {
 	public:
 		Session(ios_ptr ios,MarketPtr market);
+		~Session();
 		void start();
 		boost::shared_ptr<tcp::socket> get_socket();
 
