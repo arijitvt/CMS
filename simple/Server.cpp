@@ -61,7 +61,7 @@ void Server::start_server() {
  * the interpreter to execute the commands.
  */
 void Server::accept_handler(const boost::system::error_code &ec,boost::shared_ptr<Session> session) {
-	cout<<"Accepting connection"<<boost::this_thread::get_id()<<endl;
+	cout<<"Accepting connection "<<boost::this_thread::get_id()<<endl;
 	if(!ec) {
 		session->start();
 	}

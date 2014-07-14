@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cassert>
 
 using namespace std;
 
@@ -10,26 +11,9 @@ using namespace std;
 #include <Parser.h>
 #include <MarketPlace.h>
 
+#include <Utility.h>
 
-//const static string  base_option = "base";
-//const static string  ext1_option = "ext1";
-//const static string  ext2_option = "ext2";
-//const static string  base_desc = "This will run the program without any of the extensions enabled. All communication will be done using stdin-stdout";
-//const static string  ext1_desc = "This will run the program with single-threaded server client mode. Enter <ext1> <port_num>" ;
-//const static string  ext2_desc = "This will run the program with multi-threaded server client mode. Enter <ext2> <port_num>";
 
-const  char *base_option = "base";
-const  char *ext1_option = "ext1";
-const  char *ext2_option = "ext2";
-const  char *base_desc 	 = "This will run the program without any of the extensions enabled. All communication will be done using stdin-stdout";
-const  char *ext1_desc 	 = "This will run the program with single-threaded server client mode. Enter <ext1> <port_num>" ;
-const  char *ext2_desc 	 = "This will run the program with multi-threaded server client mode. Enter <ext2> <port_num>";
-
-enum {
-	BASE = 0,
-	EXT1,
-	EXT2
-};
 
 int port = -1;
 
@@ -43,8 +27,8 @@ void direct_parser_launch () {
 	delete p;
 }
 
-void connect_to_multi_threaded_server() {
-
+void connect_to_server() {
+        assert(port >=0 && "PORT num is not proper");
 	boost::asio::io_service ios;
 	tcp::resolver resolver(ios);
 	tcp::resolver::query query(tcp::v4(),"localhost",
@@ -109,14 +93,12 @@ int main(int argc, char **argv) {
 			break;
 
 		case EXT1:
-			break;
-
 		case EXT2:
+			connect_to_server();
 			break;
 
 		default:
 			cout<<"Invalid choice. Please use --help to get help"<<endl;
 	}
-	//connect_to_multi_threaded_server();
 	return 0;
 }
