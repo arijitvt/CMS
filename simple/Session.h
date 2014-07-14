@@ -23,11 +23,28 @@ using boost::asio::ip::tcp;
 
 typedef boost::shared_ptr<boost::asio::io_service> ios_ptr;
  
+/**
+ * This class is the implementation of the session object.
+ * Every connection will create their own session object.
+ */
 class Session:public boost::enable_shared_from_this<Session> {
 	public:
+		/** Default constructor of the session object.
+		 * @param ios , io_service pointer.
+		 * @param market ,  singleton object of the MarketPlace.
+		 */
 		Session(ios_ptr ios,MarketPtr market);
+		/**
+		 * Standard destructor of the session object.
+		 */
 		~Session();
+                /**
+		 * This function starts the session and registers the \fn read_handler
+		 */
 		void start();
+		/**
+		 * Returns the socket.
+		 */
 		boost::shared_ptr<tcp::socket> get_socket();
 
 	private: //Private methods

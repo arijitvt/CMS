@@ -13,22 +13,69 @@ using namespace std;
 
 #include <Commodity.h>
 
+
+
+/**
+ * This class stores the information about the individual Order.
+ */
 class OrderInfo {
 	public:
+		/** Constructor for the OrderInfo class
+		 * @param id , id of the order.
+		 * @param side , whether to buy or sell order
+		 * @param price , price of the Commodity
+		 * @param item_list , list of the Commodities
+		 */
 		OrderInfo(int id,string did,string side,
 				double price,vector<CommodityPtr> item_list);
+
+		/**
+		 * Insert single Commodity into the order
+		 * @param item , ptr to the Commodity
+		 */
 		void insert_item_into_order(CommodityPtr item);		
+
+		/**
+		 * Insert multiple Commodities to the order
+		 * @param item_list , list of the Commodities.
+		 */		
 		void insert_item_into_order(vector<CommodityPtr> item_list);
+
+		/**
+		 * Remove single item from the order list.
+		 */
 		bool remove_item_from_order(CommodityPtr item);
+		/**
+		 * Remove the number of the Commodities.
+		 * @param amount, # of Commodities to be removed from the order.
+		 */
 		bool remove_item_from_order(int amount);
 
+		/**
+		 * Returns the id of the order.
+		 */
 		int get_order_id();
+		/** Returns the dealer id information.
+		 */
 		string get_dealer_id();
+		/** Returns the side i.e. to buy or sell 
+		 * for the Order.
+		 */
 		string get_commodity_side();
+		/** 
+		 * Returns the price of the Commodity
+		 */
 		double get_commodity_price();
+		/** Returns the commodity number in the order.
+		 */
 		int get_commodity_list_size();
+		/**
+		 * Returns the name of the Commodity.
+		 */
 		string get_commodity_name();
-
+               /**
+		* Returns the string representation of the Order information.
+		*/
 		string to_string();
 
 	private:
