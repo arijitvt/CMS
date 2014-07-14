@@ -11,6 +11,21 @@ using namespace std;
 #include <MarketPlace.h>
 
 
+//const static string  base_option = "base";
+//const static string  ext1_option = "ext1";
+//const static string  ext2_option = "ext2";
+//const static string  base_desc = "This will run the program without any of the extensions enabled. All communication will be done using stdin-stdout";
+//const static string  ext1_desc = "This will run the program with single-threaded server client mode. Enter <ext1> <port_num>" ;
+//const static string  ext2_desc = "This will run the program with multi-threaded server client mode. Enter <ext2> <port_num>";
+
+const  char *base_option = "base";
+const  char *ext1_option = "ext1";
+const  char *ext2_option = "ext2";
+const  char *base_desc = "This will run the program without any of the extensions enabled. All communication will be done using stdin-stdout";
+const  char *ext1_desc = "This will run the program with single-threaded server client mode. Enter <ext1> <port_num>" ;
+const  char *ext2_desc = "This will run the program with multi-threaded server client mode. Enter <ext2> <port_num>";
+
+
 void direct_parser_launch () {
 	MarketPtr market = MarketPlace::getMarketPlaceSingleton();
 	cout<<"cms>";
@@ -47,14 +62,16 @@ int parse_prog_params(int argc, char **argv) {
 	namespace po = boost::program_options;
 	po::options_description desc("CMS application");
 	desc.add_options()
-		("help","This will print all the possible options")
-		("test","This is test program");
+		("help","produce help message")
+		(base_option,base_desc)
+		(ext1_option,ext1_desc)
+		(ext2_option,ext2_desc);
 	po::variables_map args;
 	try {
 		po::store(po::parse_command_line(argc,argv,desc),args);
 		po::notify(args);
 		if(args.count("help")) {
-			cout<<"Help"<<endl;
+			cout<<desc<<endl;
 		}else if(args.count("test")) {
                  	cout<<"This is test command"<<endl;
 		}
@@ -68,7 +85,7 @@ int parse_prog_params(int argc, char **argv) {
 }
 
 int main(int argc, char **argv) {
-//        parse_prog_params(argc,argv);
-	connect_to_multi_threaded_server();
+        parse_prog_params(argc,argv);
+	//connect_to_multi_threaded_server();
 	return 0;
 }
