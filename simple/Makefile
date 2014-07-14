@@ -33,7 +33,7 @@ ClientObj= $(objs) client.o
 client.o:client.cpp
 
 client:$(ClientObj)
-	$(cc) $(ClientObj) -o Client $(lflags)
+	$(cc) $(ClientObj) -o cms $(lflags)
 
 docgen:
 	$(doc) doc/config
