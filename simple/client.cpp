@@ -21,9 +21,18 @@ using namespace std;
 const  char *base_option = "base";
 const  char *ext1_option = "ext1";
 const  char *ext2_option = "ext2";
-const  char *base_desc = "This will run the program without any of the extensions enabled. All communication will be done using stdin-stdout";
-const  char *ext1_desc = "This will run the program with single-threaded server client mode. Enter <ext1> <port_num>" ;
-const  char *ext2_desc = "This will run the program with multi-threaded server client mode. Enter <ext2> <port_num>";
+const  char *base_desc 	 = "This will run the program without any of the extensions enabled. All communication will be done using stdin-stdout";
+const  char *ext1_desc 	 = "This will run the program with single-threaded server client mode. Enter <ext1> <port_num>" ;
+const  char *ext2_desc 	 = "This will run the program with multi-threaded server client mode. Enter <ext2> <port_num>";
+
+enum {
+	BASE = 0,
+	EXT1,
+	EXT2
+};
+
+int port = -1;
+
 
 
 void direct_parser_launch () {
@@ -39,7 +48,7 @@ void connect_to_multi_threaded_server() {
 	boost::asio::io_service ios;
 	tcp::resolver resolver(ios);
 	tcp::resolver::query query(tcp::v4(),"localhost",
-			boost::lexical_cast<string>(PORT).c_str());
+			boost::lexical_cast<string>(port).c_str());
 	tcp::resolver::iterator itr = resolver.resolve(query);
 	
 	tcp::socket socket(ios);
@@ -55,7 +64,7 @@ void connect_to_multi_threaded_server() {
 		cout<<buf<<endl;
 		cout<<"cms>";
 	}
-}
+}                                                                                                                                                          
 
 
 int parse_prog_params(int argc, char **argv) {
@@ -64,28 +73,50 @@ int parse_prog_params(int argc, char **argv) {
 	desc.add_options()
 		("help","produce help message")
 		(base_option,base_desc)
-		(ext1_option,ext1_desc)
-		(ext2_option,ext2_desc);
+		(ext1_option,po::value<int>(),ext1_desc)
+		(ext2_option,po::value<int>(),ext2_desc);
 	po::variables_map args;
 	try {
 		po::store(po::parse_command_line(argc,argv,desc),args);
 		po::notify(args);
 		if(args.count("help")) {
 			cout<<desc<<endl;
-		}else if(args.count("test")) {
-                 	cout<<"This is test command"<<endl;
+			return -1;
+		}else if(args.count(base_option)) {
+			return BASE;
+		}else if(args.count(ext1_option)) {
+		        port =  args[ext1_option].as<int>();
+			return EXT1;
+		}else if(args.count(ext2_option)) {
+		        port =  args[ext2_option].as<int>();
+			return EXT2;
 		}
+
 	}catch(po::error &er) {
 		cout<<er.what()<<endl;
 	}catch(std::exception &ex) {
 		cout<<ex.what()<<endl;
 	}
 
-	return 0;
+	return -1;
 }
 
 int main(int argc, char **argv) {
-        parse_prog_params(argc,argv);
+	int choice = parse_prog_params(argc,argv);
+	switch (choice) {
+		case BASE:
+			direct_parser_launch();
+			break;
+
+		case EXT1:
+			break;
+
+		case EXT2:
+			break;
+
+		default:
+			cout<<"Invalid choice. Please use --help to get help"<<endl;
+	}
 	//connect_to_multi_threaded_server();
 	return 0;
 }
