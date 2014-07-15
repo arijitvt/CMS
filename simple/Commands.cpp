@@ -151,7 +151,7 @@ AggressCommand::AggressCommand(vector<APair> apArg)
 
 
 string AggressCommand::execute(MarketPtr market,string dealer_id) {
-	cout<<"Executing the Aggress Command with the arg size = "<<apairList.size()<< endl;
+	//cout<<"Executing the Aggress Command with the arg size = "<<apairList.size()<< endl;
 	string successful_aggress_orders="";
 	for(auto arg : apairList) {
 		OrderInfoPtr order  = market->aggress_order(arg.orderId,arg.amount);

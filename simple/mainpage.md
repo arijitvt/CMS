@@ -28,7 +28,7 @@ This is also a server-client based implementation, however server holds a thread
 This application is built using boost library-1.55.0. So make sure that the target system has the proper boost library installed. Once that is in place, then create two environment variables boost_inc and boost_lib.
 boost_inc variable should contain the path to the place where the header files of boost library resides, where as boost_lib contains the information the location of the shared lirabries.
 For my system ,  
-    \par
+    \par                                                                                 
     boost_inc=/home/arijit/install/boost_1_55_0/install/include   
     \par
     boost_lib=/home/arijit/install/boost_1_55_0/install/lib
@@ -38,10 +38,32 @@ The docuementation can be regerated using \b make \b docgen. \b make \b clean  i
 
 
 \section usage Usage
+This section will detail the usage of the application.
 
 \subsection base_usage Base Usage
+Basic usage of the application is done through a standalone launch of the cms application. Command to use the application in this mode is 
+\par                                                                                                                                      
+./cms --base
+
+This will open the cms command prompt. Use of proper commands will do the commodity marketing. Illegal  usages will be reported.
+\image html base.png
 
 \subsection ext1_usage Extension 1 Usage
+Since this server-client architecture based implementation, with a single-threaded server. So in order to use this, first launch the server using
+\par
+./Server --ext1 <port_num>
 
+where port_num is the port number on which the server should listen. Then one can launch as many as client on many other different terminals, using commands,
+\par 
+./cms --ext1 <port_num>
+
+Here this port_num has to be the same with that of the server. 
+An example launched application should look like, 
+\image html ext1.png
 
 \subsection ext2_usage Extension 2 Usage
+Using application in this mode is almost similar to that of ext1 mode. Although this mode launches the application with the thread pool created in side the server, which helps to do the operations concurrently. Here the options are almost as likely as ext1 version except arguments of both Server and cms executables should be ext2 instead of ext1. An example of this mode of the application can be seen here.
+\image html ext2.png
+
+\subsection help_usage Help Usage
+For both the executable --help will display the help message containing the all the necessary information about the arguments.
